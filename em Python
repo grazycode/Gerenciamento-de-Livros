@@ -1,0 +1,100 @@
+print('Bem-vindo a livraria da Grazyella\n') 
+ 
+lista_livro = [] 
+id_global = 0 
+ 
+# Exigência de código de 3 de 8 
+def cadastrar_livro(id_global): 
+    print('-' * 50) 
+    print('-' * 14, 'MENU CADASTRAR LIVRO', '-' * 14) 
+    print('Id do livro', id_global) 
+    nome = input('nome do livro: ') 
+    autor = input('autor: ').upper() 
+    editora = input('editora: ') 
+ 
+    livro = {} 
+    livro['id'] = id_global 
+    livro['nome'] = nome 
+    livro['autor'] = autor 
+    livro['editora'] = editora 
+ 
+    lista_livro.append(livro) 
+    print("Livro cadastrado!\n") 
+ 
+# Exigência de código de 4 de 8 
+def consultar_livro(): 
+        print('-' * 50) 
+        print('-' * 14, 'MENU CONSULTAR LIVRO', '-' * 14) 
+        print('Escolha a opção desejada:') 
+        while True: 
+            opcao = input('\n1. Consultar Todos\n2. Consultar por Id\n3. Consultar por Autor\n4. Retornar ao menu\n>> ') 
+            try: 
+                if opcao in ['1', '2', '3', '4']: 
+                    break 
+            except ValueError: 
+                print('Opção inválida. Tente novamente.') 
+                continue 
+        if opcao == '1': 
+            for livro in lista_livro: 
+                print(f'id: {livro['id']} \nlivro: {livro['nome']} \nautor: {livro['autor']} \neditora: {livro['editora']}\n') 
+            return consultar_livro() 
+        elif opcao == '2': 
+            consultar_id = int(input("Digite o ID: ")) 
+            for livro in lista_livro: 
+                if livro['id'] == consultar_id: 
+                    print(f'id: {livro['id']} \nlivro: {livro['nome']} \nautor: {livro['autor']} \neditora: {livro['editora']}\n') 
+            return consultar_livro() 
+        elif opcao == '3': 
+            consultar_autor = input("Insira o autor: ").upper() 
+            for livro in lista_livro: 
+                if livro['autor'] == consultar_autor: 
+                    print(f'id: {livro['id']} \nlivro: {livro['nome']} \nautor: {livro['autor']} \neditora: {livro['editora']}\n') 
+                else: 
+                    print('Nenhum livro encontrado para este autor.') 
+                    continue 
+            return consultar_livro() 
+        elif opcao == '4': 
+            return opcao2 
+ 
+ 
+# Exigência de código de 5 de 8 
+def remover_livro(): 
+    while True: 
+        try: 
+            remover_id = int(input("ID do livro a ser removido: ")) 
+        except ValueError: 
+            print('ID inválido.') 
+            remover_id = int(input("ID do livro a ser removido: ")) 
+        for livro in lista_livro: 
+            if livro['id'] == remover_id: 
+                lista_livro.remove(livro) 
+                print("Livro removido com sucesso!") 
+                return 
+        else: 
+            # Se o livro não for encontrado, voltará para o início do loop, pedindo outro ID 
+            print("Livro não encontrado") 
+            continue 
+ 
+ 
+# Exigência de código de 4 de 8 
+while True: 
+    print('-' * 50) 
+    print('-' * 15, 'MENU PRINCIPAL', '-' * 19) 
+    opcao2 = input('\n 1. Cadastrar Livro \n 2. Consultar Livro(s) \n 3. Remover Livro \n 4. Sair \n>> ') 
+    while opcao2 not in ['1', '2', '3', '4']: 
+        opcao2 = input('\n 1. Cadastrar Livro \n 2. Consultar Livro(s) \n 3. Remover Livro \n 4. Sair \n>> ') 
+ 
+    if opcao2 == '1': 
+        id_global += 1 
+        cadastrar_livro(id_global) 
+    elif opcao2 == '2': 
+        consultar_livro() 
+    elif opcao2 == '3': 
+        remover_livro() 
+    elif opcao2 == '4': 
+        print("Saindo do programa...") 
+        break 
+    # para encerrar o programa 
+    else: 
+        print("Opção inválida.") 
+        continue 
